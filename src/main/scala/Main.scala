@@ -26,7 +26,7 @@ object Main {
         /* Transformation des données */
         matchs = new Transformer(matchs)
           .typeTransform(FileType.colsInteger, FileType.colsFloat)
-          .getData()
+          .data
 
         matchs.printSchema()
     }

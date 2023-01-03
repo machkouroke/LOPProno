@@ -4,7 +4,7 @@ package utilities.Transformer
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{Column, DataFrame}
 
-class Transformer(data: DataFrame) {
+class Transformer(val data: DataFrame) {
     /**
      * Transforme les colonnes de type Integer en type Integer et les colonnes de type Float en type Float
      * @param colsInteger: List[String] - Liste des colonnes de type Integer
