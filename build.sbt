@@ -1,6 +1,6 @@
-ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / version := "0.1.1-SNAPSHOT"
 
-ThisBuild / scalaVersion := "2.11.12"
+ThisBuild / scalaVersion := "2.12.15"
 
 lazy val root = (project in file("."))
   .settings(
@@ -9,5 +9,5 @@ lazy val root = (project in file("."))
   )
 
 // Add of Apache Spark
-libraryDependencies += "org.apache.spark" %% "spark-core" % "2.4.0"
-libraryDependencies += "org.apache.spark" %% "spark-sql" % "2.4.0"
+libraryDependencies += "org.apache.spark" %% "spark-core" % "2.4.8"
+libraryDependencies += "org.apache.spark" %% "spark-sql" % "2.4.8"
