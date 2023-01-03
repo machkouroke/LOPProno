@@ -22,12 +22,12 @@ object Loader {
         go(iter, List.empty[java.net.URI])
     }
 
-    def listDatasets(spark: SparkSession, fs: FileSystem, listFile: Seq[URI]): Seq[DataFrame] = {
-        listFiles(fs.listFiles(new Path("/data/sports-data"), true)).
+    def listDatasets(spark: SparkSession, fs: FileSystem, listFile: Seq[URI]): Joiner = {
+        new Joiner(listFiles(fs.listFiles(new Path("/data/sports-data"), true)).
           filter(_.toString.endsWith(".csv")).
           map(fileStatus => spark.read.option("header", "true").
             format("csv").
-            load(fileStatus.getPath))
+            load(fileStatus.getPath)))
     }
 
 }
