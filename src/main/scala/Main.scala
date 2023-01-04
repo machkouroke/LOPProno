@@ -1,12 +1,12 @@
 package org.lop
 
 
-import utilities.Loader
 import constant.FileType
+import utilities.Loader
+import utilities.Transformer.Transformer
+
 import org.apache.hadoop.fs.{FileSystem, Path}
-import org.apache.spark.sql.{Column, DataFrame, SparkSession}
-import org.apache.spark.sql.functions.col
-import org.lop.utilities.Transformer.Transformer
+import org.apache.spark.sql.{DataFrame, Row, SparkSession}
 
 
 object Main {
@@ -26,8 +26,10 @@ object Main {
         /* Transformation des données */
         matchs = new Transformer(matchs)
           .typeTransform(FileType.colsInteger, FileType.colsFloat)
+          .dropNa()
+          .oneHotEncoder()
           .data
-
         matchs.printSchema()
     }
 }
+
