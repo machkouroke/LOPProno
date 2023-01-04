@@ -6,13 +6,15 @@ import utilities.Loader
 import utilities.Transformer.Transformer
 
 import org.apache.hadoop.fs.{FileSystem, Path}
-import org.apache.spark.sql.{DataFrame, Row, SparkSession}
+import org.apache.spark.SparkConf
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
 
 object Main {
 
     def main(args: Array[String]): Unit = {
-        val spark: SparkSession = SparkSession.builder().appName("LOPPronostic").getOrCreate()
+        val conf = new SparkConf().setAppName("LOPPronostic").set("spark.logging.level", "INFO")
+        val spark: SparkSession = SparkSession.builder().config(conf).getOrCreate()
         val fs: FileSystem = FileSystem.get(spark.sparkContext.hadoopConfiguration)
 
         /* Chargement des données */
@@ -26,10 +28,12 @@ object Main {
         /* Transformation des données */
         matchs = new Transformer(matchs)
           .typeTransform(FileType.colsInteger, FileType.colsFloat)
+          .renameColumns()
           .dropNa()
-          .oneHotEncoder()
           .data
         matchs.printSchema()
+        matchs.show(2)
+//        PronoModel.fit(matchs, "FTRindexed")
     }
 }
 
