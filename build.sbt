@@ -9,5 +9,6 @@ lazy val root = (project in file("."))
   )
 
 // Add of Apache Spark
-libraryDependencies += "org.apache.spark" %% "spark-core" % "2.4.8"
-libraryDependencies += "org.apache.spark" %% "spark-sql" % "2.4.8"
+libraryDependencies += "org.apache.spark" %% "spark-core" % "3.1.0"
+libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.1.0"
+libraryDependencies += "org.apache.spark" %% "spark-mllib" % "3.1.0"
