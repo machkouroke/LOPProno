@@ -1,9 +1,8 @@
 package org.lop
 package utilities.Transformer
 
-import org.apache.spark.sql.functions.{col, when}
+import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{Column, DataFrame}
-import constant.FileType.{colsFloat, colsInteger}
 
 
 class Transformer(val data: DataFrame) {
@@ -38,35 +37,13 @@ class Transformer(val data: DataFrame) {
      *
      * @return
      */
-    def oneHotEncoder(): Transformer = {
-        val cols: List[String] = colsString(colsInteger, colsFloat)
-
-        def columnEncoder(data: DataFrame, colName: String): Transformer = {
-            val distinctValue = data.select(col(s"`$colName`")).distinct().collect().map(_.getString(0))
-            var tempData: DataFrame = data.select(data.columns.map(c => col(s"`$c`")): _*)
-            for {value <- distinctValue} {
-                tempData = tempData.
-                  withColumn(
-                      s"${colName}_$value",
-                      when(data(colName) === value, 1).otherwise(0)
-                  )
-            }
-            new Transformer(tempData.drop(colName))
-        }
-
-        var encodedData = new Transformer(data)
-        for {col <- cols} {
-            encodedData = columnEncoder(encodedData.data, col)
-        }
-        new Transformer(encodedData.data)
-    }
 
 
     /**
      * Retourne la liste des colonnes de type String
      *
-     * @param colsInteger
-     * @param colsFloat
+     * @param colsInteger : List[String] - Liste des colonnes de type Integer
+     * @param colsFloat  : List[String] - Liste des colonnes de type Float
      * @return
      */
     private def colsString(colsInteger: List[String], colsFloat: List[String]): List[String] = {
@@ -77,4 +54,13 @@ class Transformer(val data: DataFrame) {
           .toList
     }
 
+    def renameColumns(): Transformer = {
+        new Transformer(data
+          .withColumnRenamed("BbMx>2.5", "BbMx>2,5")
+          .withColumnRenamed("BbAv>2.5", "BbAv>2,5")
+          .withColumnRenamed("BbMx<2.5", "BbMx<2,5")
+          .withColumnRenamed("BbAv<2.5", "BbAv<2,5")
+
+        )
+    }
 }
