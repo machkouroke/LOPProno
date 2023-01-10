@@ -56,11 +56,12 @@ class Transformer(val data: DataFrame) {
 
     def renameColumns(): Transformer = {
         new Transformer(data
-          .withColumnRenamed("BbMx>2.5", "BbMx>2,5")
-          .withColumnRenamed("BbAv>2.5", "BbAv>2,5")
-          .withColumnRenamed("BbMx<2.5", "BbMx<2,5")
-          .withColumnRenamed("BbAv<2.5", "BbAv<2,5")
+          .withColumnRenamed("BbMx>2.5", "BbMxgt25")
+          .withColumnRenamed("BbAv>2.5", "BbAvgt25")
+          .withColumnRenamed("BbMx<2.5", "BbMxlt25")
+          .withColumnRenamed("BbAv<2.5", "BbAvlt25")
 
         )
     }
 }
+
