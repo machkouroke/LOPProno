@@ -27,7 +27,7 @@ object FileType {
     val colsFloat: List[String] = List(
         "B365H", "B365D", "B365A", "BWH", "BWD", "BWA", "IWH", "IWD", "IWA", "WHH",
         "WHD", "WHA", "VCH", "VCD", "VCA", "BbMxH", "BbAvH", "BbMxD", "BbAvD",
-        "BbMxA", "BbAvA", "BbMx>2.5", "BbAv>2.5", "BbMx<2.5", "BbAv<2.5",
+        "BbMxA", "BbAvA", "BbMxgt25", "BbAvgt25", "BbMxlt25", "BbAvlt25",
         "BbMxAHH", "BbAvAHH", "BbMxAHA", "BbAvAHA"
     )
 
