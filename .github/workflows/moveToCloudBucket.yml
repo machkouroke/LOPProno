@@ -1,0 +1,23 @@
+name: Deploy to Cloud Storage
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure GCloud SDK
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@main
+        with:
+          version: '310.0.0'
+          service_account_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+
+      - name: Deploy to Cloud Storage
+        run: |
+          gsutil -m cp -r . gs://lopprono/app
