@@ -32,7 +32,7 @@ object Main {
         println("Data saved")
         val matchs = spark.read.parquet(path)
         val pronoVersion = "Pronostiqueur 5.0"
-        println("Jar version:4.0")
+        println("Jar version:5.0")
         println(s"Spark version: $sparkVersion")
         println(s"Scala version: $scalaVersion")
         println(s"Nombre d'exécuteurs par défaut : $numExecutors")
