@@ -32,11 +32,12 @@ jobs:
 
       - name: Define Jar Path
         run: |
-          echo "JAR_PATH=target/scala-${{ env.SCALA_VERSION }}/loppronostic_${{ env.SCALA_VERSION }}-${{ env.JAR_VERSION }}.jar" >> $GITHUB_ENV
+          echo "JAR_PATH=target/scala-${{ env.SCALA_VERSION }}/loppronostic_${{ env.SCALA_VERSION }}-${{ env.JAR_VERSION }}.jar" >> $GITHUB_ENV &&
+            echo "JAR_NAME=loppronostic_${{ env.SCALA_VERSION }}-${{ env.JAR_VERSION }}.jar" >> $GITHUB_ENV
 
 
       - name: Deploy to Cloud Storage
         run: |
           echo "JAR_PATH=${{ env.JAR_PATH }}" &&
-          gsutil cp ${{ env.JAR_PATH }} gs://lopprono/$JAR_NAME.jar &&
+          gsutil cp ${{ env.JAR_PATH }} gs://lopprono/${{ env.JAR_NAME }} &&
           gsutil cp ${{ env.JAR_PATH }}" gs://lopprono/main.jar 
