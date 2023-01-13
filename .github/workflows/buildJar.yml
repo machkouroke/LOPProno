@@ -39,5 +39,5 @@ jobs:
       - name: Deploy to Cloud Storage
         run: |
           echo "JAR_PATH=${{ env.JAR_PATH }}" &&
-          gsutil cp ${{ env.JAR_PATH }} gs://lopprono/${{ env.JAR_NAME }} &&
-          gsutil cp ${{ env.JAR_PATH }} gs://lopprono/main.jar 
+          gsutil cp ${{ env.JAR_PATH }} gs://lopprono/jar/${{ env.JAR_NAME }} &&
+          gsutil cp ${{ env.JAR_PATH }} gs://lopprono//jar/current.jar 
