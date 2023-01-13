@@ -26,8 +26,8 @@ jobs:
       - name: Determine JAR and scala version
         run: |
           python3 version.py > version.txt &&
-          echo "JAR_VERSION=$(head -n 1 version/version.txt)" >> $GITHUB_ENV &&
-          echo "SCALA_VERSION=$(tail -n 1 version/version.txt)" >> $GITHUB_ENV &&
+          echo "JAR_VERSION=$(head -n 1 version.txt)" >> $GITHUB_ENV &&
+          echo "SCALA_VERSION=$(tail -n 1 version.txt)" >> $GITHUB_ENV &&
           echo "JAR_PATH=target/scala-${{ env.SCALA_VERSION }}/loppronostic_${{ env.SCALA_VERSION }}-${{ env.JAR_VERSION }}.jar" >> $GITHUB_ENV &&
           rm version.txt &&
           echo "JAR_PATH=${{ env.JAR_PATH }}"
