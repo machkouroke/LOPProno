@@ -1,4 +1,6 @@
-name: Deploy to Cloud Storage
+name: Build JAR
+
+on: workflow_dispatch
 
 jobs:
   deploy:
@@ -14,7 +16,22 @@ jobs:
           credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
-
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 8
+      - name: Build JAR
+        run: sbt package
+      - name: Determine JAR and scala version
+        run: |
+          python3 version.py > version.txt &&
+          echo "JAR_VERSION=$(head -n 1 version/version.txt)" >> $GITHUB_ENV &&
+          echo "SCALA_VERSION=$(tail -n 1 version/version.txt)" >> $GITHUB_ENV &&
+          echo "JAR_PATH=target/scala-${{ env.SCALA_VERSION }}/loppronostic_${{ env.SCALA_VERSION }}-${{ env.JAR_VERSION }}.jar" >> $GITHUB_ENV &&
+          rm version.txt &&
+          echo "JAR_PATH=${{ env.JAR_PATH }}"
       - name: Deploy to Cloud Storage
         run: |
-          gsutil -m cp -r . gs://lopprono/app
+          gsutil cp $JAR_PATH gs://$BUCKET_NAME/$JAR_NAME.jar &&
+          gsutil cp $JAR_PATH gs://$BUCKET_NAME/main.jar 
