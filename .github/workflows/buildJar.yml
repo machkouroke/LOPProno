@@ -40,4 +40,4 @@ jobs:
         run: |
           echo "JAR_PATH=${{ env.JAR_PATH }}" &&
           gsutil cp ${{ env.JAR_PATH }} gs://lopprono/jar/${{ env.JAR_NAME }} &&
-          gsutil cp ${{ env.JAR_PATH }} gs://lopprono//jar/current.jar 
+          gsutil cp ${{ env.JAR_PATH }} gs://lopprono/jar/current.jar 
