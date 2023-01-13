@@ -33,7 +33,7 @@ jobs:
       - name: Define Jar Path
         run: |
           echo "JAR_PATH=target/scala-${{ env.SCALA_VERSION }}/loppronostic_${{ env.SCALA_VERSION }}-${{ env.JAR_VERSION }}.jar" >> $GITHUB_ENV &&
-          rm version.txt
+  
 
       - name: Deploy to Cloud Storage
         run: |
