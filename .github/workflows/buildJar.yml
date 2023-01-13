@@ -29,9 +29,10 @@ jobs:
           echo "JAR_VERSION=$(head -n 1 version.txt)" >> $GITHUB_ENV &&
           echo "SCALA_VERSION=$(tail -n 1 version.txt)" >> $GITHUB_ENV &&
           echo "JAR_PATH=target/scala-${{ env.SCALA_VERSION }}/loppronostic_${{ env.SCALA_VERSION }}-${{ env.JAR_VERSION }}.jar" >> $GITHUB_ENV &&
-          rm version.txt &&
-          echo "JAR_PATH=${{ JAR_PATH }}"
+          rm version.txt
+
       - name: Deploy to Cloud Storage
         run: |
+          echo "JAR_PATH=${{ env.JAR_PATH }}" &&
           gsutil cp $JAR_PATH gs://$BUCKET_NAME/$JAR_NAME.jar &&
           gsutil cp $JAR_PATH gs://$BUCKET_NAME/main.jar 
